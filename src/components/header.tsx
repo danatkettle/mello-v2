@@ -8,12 +8,13 @@ interface HeaderProps {
 
 export function Header({ isPlannerOpen, onTogglePlanner }: HeaderProps) {
   return (
-    <header className="flex h-12 shrink-0 items-center justify-between border-b bg-background px-4">
-      <h1 className="text-lg font-bold tracking-tight">Mello v2</h1>
+    <header className="flex h-14 shrink-0 items-center justify-between border-b bg-card/80 backdrop-blur-sm px-6 shadow-sm">
+      <h1 className="text-2xl font-serif font-semibold tracking-tight text-primary">Mello</h1>
       <Button
-        variant={isPlannerOpen ? "secondary" : "ghost"}
+        variant={isPlannerOpen ? "default" : "ghost"}
         size="sm"
         onClick={onTogglePlanner}
+        className="gap-1.5 font-medium"
       >
         <CalendarDays className="size-4" />
         Planner

@@ -58,23 +58,23 @@ export function BoardColumn({ column, cards }: BoardColumnProps) {
   return (
     <div className="relative flex shrink-0">
       {closestEdge === "left" && (
-        <div className="absolute -left-[2px] top-0 bottom-0 w-[2px] rounded-full bg-primary" />
+        <div className="absolute -left-[3px] top-4 bottom-4 w-[3px] rounded-full bg-primary shadow-[0_0_12px_rgba(59,130,246,0.6)]" />
       )}
       <div
         ref={columnRef}
         className={cn(
-          "flex w-72 shrink-0 flex-col rounded-xl border bg-muted/50",
+          "flex w-72 shrink-0 flex-col rounded-2xl border border-border/60 bg-card/40 backdrop-blur-sm shadow-[0_2px_12px_rgba(59,130,246,0.06)]",
           isDragging && "opacity-50"
         )}
       >
         <ColumnHeader columnId={column.id} title={column.title} dragHandleRef={headerRef} />
         <CardList cards={cards} columnId={column.id} />
-        <div className="p-2">
+        <div className="p-3">
           <AddCardForm columnId={column.id} />
         </div>
       </div>
       {closestEdge === "right" && (
-        <div className="absolute -right-[2px] top-0 bottom-0 w-[2px] rounded-full bg-primary" />
+        <div className="absolute -right-[3px] top-4 bottom-4 w-[3px] rounded-full bg-primary shadow-[0_0_12px_rgba(59,130,246,0.6)]" />
       )}
     </div>
   )

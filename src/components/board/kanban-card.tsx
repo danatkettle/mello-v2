@@ -62,20 +62,20 @@ export function KanbanCard({ card, columnId }: KanbanCardProps) {
       <div
         ref={cardRef}
         className={cn(
-          "group relative rounded-lg border bg-card p-3 shadow-sm transition-colors hover:border-ring/50 cursor-pointer",
-          isDragging && "opacity-50"
+          "group relative rounded-xl border border-border/60 bg-card p-4 shadow-[0_2px_8px_rgba(59,130,246,0.08)] transition-all duration-200 hover:shadow-[0_4px_16px_rgba(59,130,246,0.12)] hover:border-primary/30 hover:-translate-y-0.5 cursor-pointer",
+          isDragging && "opacity-50 shadow-none"
         )}
         onClick={handleClick}
       >
         {closestEdge === "top" && (
-          <div className="absolute -top-[2px] left-0 right-0 h-[2px] rounded-full bg-primary" />
+          <div className="absolute -top-[2px] left-2 right-2 h-[3px] rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
         )}
-        <p className="text-sm">{card.title}</p>
+        <p className="text-sm font-medium leading-relaxed">{card.title}</p>
         {card.description && (
-          <p className="mt-1 text-xs text-muted-foreground line-clamp-2">{card.description}</p>
+          <p className="mt-2 text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed">{card.description}</p>
         )}
         {closestEdge === "bottom" && (
-          <div className="absolute -bottom-[2px] left-0 right-0 h-[2px] rounded-full bg-primary" />
+          <div className="absolute -bottom-[2px] left-2 right-2 h-[3px] rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
         )}
       </div>
       <CardDialog

@@ -15,7 +15,7 @@ export function PlannerPanel({ isOpen, onClose }: PlannerPanelProps) {
   return (
     <div
       className={cn(
-        "flex flex-col border-l bg-background transition-all duration-300 overflow-hidden",
+        "flex flex-col border-l border-border/60 bg-card/60 backdrop-blur-sm transition-all duration-300 overflow-hidden shadow-[-4px_0_16px_rgba(59,130,246,0.04)]",
         isOpen ? "w-[380px]" : "w-0 border-l-0"
       )}
     >

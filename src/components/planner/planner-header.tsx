@@ -20,13 +20,13 @@ export function PlannerHeader({ selectedDate, onDateChange, onClose }: PlannerHe
   })
 
   return (
-    <div className="flex items-center justify-between border-b px-3 py-2">
+    <div className="flex items-center justify-between border-b border-border/40 px-4 py-3">
       <div className="flex items-center gap-2">
-        <h2 className="text-sm font-semibold">Planner</h2>
+        <h2 className="font-serif text-base font-semibold">Planner</h2>
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="h-7 gap-1 text-xs">
-              <CalendarIcon className="size-3" />
+            <Button variant="outline" size="sm" className="h-7 gap-1.5 text-xs font-medium">
+              <CalendarIcon className="size-3.5" />
               {formattedDate}
             </Button>
           </PopoverTrigger>

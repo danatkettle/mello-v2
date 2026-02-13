@@ -10,6 +10,8 @@ export const DEFAULT_BOARD_STATE: BoardState = (() => {
   const card3 = generateId()
   const card4 = generateId()
   const card5 = generateId()
+  const card6 = generateId()
+  const card7 = generateId()
 
   const col1 = generateId()
   const col2 = generateId()
@@ -17,16 +19,18 @@ export const DEFAULT_BOARD_STATE: BoardState = (() => {
 
   return {
     cards: {
-      [card1]: { id: card1, title: "Research project requirements", description: "", createdAt: new Date().toISOString() },
-      [card2]: { id: card2, title: "Set up development environment", description: "", createdAt: new Date().toISOString() },
-      [card3]: { id: card3, title: "Design database schema", description: "Define tables and relationships", createdAt: new Date().toISOString() },
-      [card4]: { id: card4, title: "Build API endpoints", description: "", createdAt: new Date().toISOString() },
-      [card5]: { id: card5, title: "Write unit tests", description: "", createdAt: new Date().toISOString() },
+      [card1]: { id: card1, title: "Dangerously Skip Permissions", description: "", createdAt: new Date().toISOString() },
+      [card2]: { id: card2, title: "Git/Github (Main, Feature Branch, Commit, Push)", description: "", createdAt: new Date().toISOString() },
+      [card3]: { id: card3, title: "Database (json, localStorage, Supabase)", description: "", createdAt: new Date().toISOString() },
+      [card4]: { id: card4, title: "Terminal Only", description: "", createdAt: new Date().toISOString() },
+      [card5]: { id: card5, title: "Skills", description: "", createdAt: new Date().toISOString() },
+      [card6]: { id: card6, title: "MCPs", description: "", createdAt: new Date().toISOString() },
+      [card7]: { id: card7, title: "Multi Claudes", description: "", createdAt: new Date().toISOString() },
     },
     columns: {
-      [col1]: { id: col1, title: "To Do", cardIds: [card1, card2] },
-      [col2]: { id: col2, title: "In Progress", cardIds: [card3, card4] },
-      [col3]: { id: col3, title: "Done", cardIds: [card5] },
+      [col1]: { id: col1, title: "To Do", cardIds: [card1, card2, card3, card4] },
+      [col2]: { id: col2, title: "In Progress", cardIds: [card5, card6] },
+      [col3]: { id: col3, title: "Done", cardIds: [card7] },
     },
     columnOrder: [col1, col2, col3],
     calendarEntries: {},

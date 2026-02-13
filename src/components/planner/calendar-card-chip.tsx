@@ -94,18 +94,18 @@ export function CalendarCardChip({
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col gap-1 rounded-md border border-primary/30 bg-primary/10 px-2 py-1 text-xs shadow-sm",
-        isResizing && "ring-1 ring-primary/40",
+        "group relative flex h-full flex-col gap-1 rounded-lg border border-primary/40 bg-gradient-to-br from-primary/15 to-primary/10 px-2.5 py-1.5 text-xs shadow-[0_2px_8px_rgba(59,130,246,0.12)]",
+        isResizing && "ring-2 ring-primary/50 shadow-[0_4px_12px_rgba(59,130,246,0.2)]",
         className
       )}
       style={style}
     >
-      {showTitle ? <span className="truncate font-medium">{cardTitle}</span> : null}
+      {showTitle ? <span className="truncate font-medium leading-relaxed">{cardTitle}</span> : null}
       {showRemove && (
         <Button
           variant="ghost"
           size="icon-xs"
-          className="absolute right-1 top-1 size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
+          className="absolute right-1 top-1 size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-primary/20"
           onClick={(e) => {
             e.stopPropagation()
             dispatch({ type: "REMOVE_CALENDAR_ENTRY", entryId })
@@ -117,7 +117,7 @@ export function CalendarCardChip({
       <div
         role="separator"
         aria-orientation="horizontal"
-        className="absolute left-1 right-1 -bottom-1 h-2 cursor-ns-resize rounded-md opacity-0 transition-opacity hover:bg-primary/20 group-hover:opacity-100"
+        className="absolute left-1 right-1 -bottom-1 h-2 cursor-ns-resize rounded-md opacity-0 transition-opacity hover:bg-primary/30 group-hover:opacity-100"
         onPointerDown={handleResizeStart}
       />
     </div>

@@ -46,7 +46,7 @@ export function ColumnHeader({ columnId, title, dragHandleRef }: ColumnHeaderPro
   return (
     <div
       ref={dragHandleRef}
-      className="flex items-center justify-between px-2 py-2 cursor-grab active:cursor-grabbing"
+      className="flex items-center justify-between px-4 py-3 cursor-grab active:cursor-grabbing border-b border-border/40"
     >
       {isEditing ? (
         <Input
@@ -61,10 +61,10 @@ export function ColumnHeader({ columnId, title, dragHandleRef }: ColumnHeaderPro
               setIsEditing(false)
             }
           }}
-          className="h-7 text-sm font-semibold"
+          className="h-8 font-serif text-base font-semibold"
         />
       ) : (
-        <h3 className="truncate text-sm font-semibold px-1">{title}</h3>
+        <h3 className="truncate font-serif text-base font-semibold px-1">{title}</h3>
       )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

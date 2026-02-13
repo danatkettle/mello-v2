@@ -35,7 +35,7 @@ export function CardList({ cards, columnId }: CardListProps) {
     <div
       ref={listRef}
       className={cn(
-        "flex min-h-[40px] flex-1 flex-col gap-2 px-2 py-1 transition-colors",
+        "flex min-h-[40px] flex-1 flex-col gap-2 px-3 py-2 pb-3 transition-colors",
         isDraggedOver && cards.length === 0 && "bg-muted/50 rounded-lg"
       )}
     >
