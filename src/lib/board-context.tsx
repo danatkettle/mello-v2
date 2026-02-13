@@ -1,10 +1,10 @@
-import { createContext, useContext, useReducer, useEffect, type ReactNode } from "react"
+import { createContext, useContext, useReducer, useEffect, useState, useRef, type ReactNode } from "react"
 import type { BoardState } from "@/types/board"
 import type { BoardAction } from "@/types/actions"
 import { boardReducer } from "./board-reducer"
 import { DEFAULT_BOARD_STATE } from "./board-defaults"
-
-const STORAGE_KEY = "mello-v2-board"
+import { fetchBoardState, saveBoardState, deleteBoardState } from "./board-api"
+import { debounce } from "./debounce"
 
 function normalizeState(state: BoardState): BoardState {
   const normalizedEntries: BoardState["calendarEntries"] = {}
@@ -17,38 +17,84 @@ function normalizeState(state: BoardState): BoardState {
   return { ...state, calendarEntries: normalizedEntries }
 }
 
-function getInitialState(): BoardState {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      return normalizeState(JSON.parse(stored) as BoardState)
-    }
-  } catch {
-    // ignore parse errors
-  }
-  return DEFAULT_BOARD_STATE
-}
-
 interface BoardContextValue {
   state: BoardState
   dispatch: React.Dispatch<BoardAction>
+  resetBoard: () => void
+  isLoading: boolean
+  saveError: string | null
+  forceSyncBoard: () => Promise<void>
 }
 
 const BoardContext = createContext<BoardContextValue | null>(null)
 
 export function BoardProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(boardReducer, null, getInitialState)
+  const [state, dispatch] = useReducer(boardReducer, DEFAULT_BOARD_STATE)
+  const [isLoading, setIsLoading] = useState(true)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const isMountedRef = useRef(false)
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-    } catch {
-      // localStorage full or unavailable
+    async function loadBoard() {
+      try {
+        const data = await fetchBoardState()
+        if (data) {
+          dispatch({ type: "RESET_BOARD", payload: normalizeState(data) })
+        }
+      } catch (error) {
+        console.error("Failed to load board:", error)
+        setSaveError(error instanceof Error ? error.message : "Failed to load board")
+      } finally {
+        setIsLoading(false)
+        isMountedRef.current = true
+      }
     }
-  }, [state])
+    loadBoard()
+  }, [])
+
+  const debouncedSave = useRef(
+    debounce(async (currentState: BoardState) => {
+      try {
+        await saveBoardState(currentState)
+        setSaveError(null)
+      } catch (error) {
+        console.error("Failed to save board:", error)
+        setSaveError(error instanceof Error ? error.message : "Failed to save board")
+      }
+    }, 500)
+  ).current
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      debouncedSave(state)
+    }
+  }, [state, debouncedSave])
+
+  const resetBoard = async () => {
+    try {
+      await deleteBoardState()
+      dispatch({ type: "RESET_BOARD" })
+      await saveBoardState(DEFAULT_BOARD_STATE)
+      setSaveError(null)
+    } catch (error) {
+      console.error("Failed to reset board:", error)
+      setSaveError(error instanceof Error ? error.message : "Failed to reset board")
+    }
+  }
+
+  const forceSyncBoard = async () => {
+    try {
+      await saveBoardState(state)
+      setSaveError(null)
+    } catch (error) {
+      console.error("Failed to sync board:", error)
+      setSaveError(error instanceof Error ? error.message : "Failed to sync board")
+      throw error
+    }
+  }
 
   return (
-    <BoardContext.Provider value={{ state, dispatch }}>
+    <BoardContext.Provider value={{ state, dispatch, resetBoard, isLoading, saveError, forceSyncBoard }}>
       {children}
     </BoardContext.Provider>
   )

@@ -1,6 +1,6 @@
 import type { BoardState } from "@/types/board"
 import type { BoardAction } from "@/types/actions"
-import { generateId } from "./board-defaults"
+import { generateId, DEFAULT_BOARD_STATE } from "./board-defaults"
 
 export function boardReducer(state: BoardState, action: BoardAction): BoardState {
   switch (action.type) {
@@ -169,6 +169,32 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
       }
     }
 
+    case "SET_WIP_LIMIT": {
+      const column = state.columns[action.columnId]
+      if (!column) return state
+      const limit = Math.max(1, Math.floor(action.limit))
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.columnId]: { ...column, wipLimit: limit },
+        },
+      }
+    }
+
+    case "REMOVE_WIP_LIMIT": {
+      const column = state.columns[action.columnId]
+      if (!column) return state
+      const { wipLimit, ...columnWithoutLimit } = column
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.columnId]: columnWithoutLimit,
+        },
+      }
+    }
+
     case "ADD_CALENDAR_ENTRY": {
       // Prevent duplicate: same card + same date + same timeSlot
       const duplicate = Object.values(state.calendarEntries).find(
@@ -210,6 +236,10 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
 
     case "LOAD_STATE": {
       return action.state
+    }
+
+    case "RESET_BOARD": {
+      return action.payload ?? DEFAULT_BOARD_STATE
     }
 
     default:

@@ -10,7 +10,10 @@ export type BoardAction =
   | { type: "REORDER_CARD"; columnId: string; cardId: string; targetIndex: number }
   | { type: "MOVE_CARD"; sourceColumnId: string; targetColumnId: string; cardId: string; targetIndex: number }
   | { type: "REORDER_COLUMN"; columnId: string; targetIndex: number }
+  | { type: "SET_WIP_LIMIT"; columnId: string; limit: number }
+  | { type: "REMOVE_WIP_LIMIT"; columnId: string }
   | { type: "ADD_CALENDAR_ENTRY"; cardId: string; date: string; timeSlot: string }
   | { type: "REMOVE_CALENDAR_ENTRY"; entryId: string }
   | { type: "RESIZE_CALENDAR_ENTRY"; entryId: string; durationSlots: number }
   | { type: "LOAD_STATE"; state: BoardState }
+  | { type: "RESET_BOARD"; payload?: BoardState }
