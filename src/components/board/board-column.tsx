@@ -67,7 +67,13 @@ export function BoardColumn({ column, cards }: BoardColumnProps) {
           isDragging && "opacity-50"
         )}
       >
-        <ColumnHeader columnId={column.id} title={column.title} dragHandleRef={headerRef} />
+        <ColumnHeader
+          columnId={column.id}
+          title={column.title}
+          cardCount={cards.length}
+          wipLimit={column.wipLimit}
+          dragHandleRef={headerRef}
+        />
         <CardList cards={cards} columnId={column.id} />
         <div className="p-3">
           <AddCardForm columnId={column.id} />

@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react"
 import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
+import { Inbox } from "lucide-react"
 import invariant from "tiny-invariant"
 import type { Card } from "@/types/board"
 import { DRAG_TYPE_CARD } from "@/types/drag"
@@ -43,9 +44,15 @@ export function CardList({ cards, columnId }: CardListProps) {
         <KanbanCard key={card.id} card={card} columnId={columnId} />
       ))}
       {cards.length === 0 && (
-        <p className="py-4 text-center text-xs text-muted-foreground">
-          Drop cards here
-        </p>
+        <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
+          <div className="mb-3 rounded-full bg-primary/10 p-3">
+            <Inbox className="size-6 text-primary/60" />
+          </div>
+          <p className="text-sm font-medium text-foreground/70 mb-1">No cards yet</p>
+          <p className="text-xs text-muted-foreground/80 leading-relaxed">
+            Drag cards here or click <span className="font-medium text-primary">+ Add a card</span> below
+          </p>
+        </div>
       )}
     </div>
   )

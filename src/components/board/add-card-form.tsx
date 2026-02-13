@@ -39,7 +39,7 @@ export function AddCardForm({ columnId }: AddCardFormProps) {
       <Button
         variant="ghost"
         size="sm"
-        className="w-full justify-start text-muted-foreground"
+        className="w-full justify-start text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors"
         onClick={() => setIsAdding(true)}
       >
         <Plus className="size-4" />

@@ -29,7 +29,7 @@ export const DEFAULT_BOARD_STATE: BoardState = (() => {
     },
     columns: {
       [col1]: { id: col1, title: "To Do", cardIds: [card1, card2, card3, card4] },
-      [col2]: { id: col2, title: "In Progress", cardIds: [card5, card6] },
+      [col2]: { id: col2, title: "In Progress", cardIds: [card5, card6], wipLimit: 3 },
       [col3]: { id: col3, title: "Done", cardIds: [card7] },
     },
     columnOrder: [col1, col2, col3],

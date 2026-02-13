@@ -1,3 +1,4 @@
+import { Calendar } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useBoard } from "@/lib/board-context"
 import { TIME_SLOTS, formatTimeSlot } from "@/lib/planner-utils"
@@ -52,10 +53,11 @@ export function TimeSlotList({ date }: TimeSlotListProps) {
   }
 
   const maxColumns = Math.max(1, ...entries.map((entry) => entry.column + 1))
+  const hasEntries = entries.length > 0
 
   return (
     <ScrollArea className="flex-1">
-      <div className="flex" style={{ ["--slot-row-height" as string]: "44px" }}>
+      <div className="flex relative" style={{ ["--slot-row-height" as string]: "44px" }}>
         <div className="w-16 shrink-0">
           <div
             className="grid text-xs text-muted-foreground"
@@ -115,6 +117,19 @@ export function TimeSlotList({ date }: TimeSlotListProps) {
               )
             })}
           </div>
+          {!hasEntries && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="flex flex-col items-center text-center px-6 py-8 bg-card/80 backdrop-blur-sm rounded-xl border border-border/40 shadow-sm">
+                <div className="mb-3 rounded-full bg-primary/10 p-3">
+                  <Calendar className="size-6 text-primary/60" />
+                </div>
+                <p className="text-sm font-medium text-foreground/70 mb-1">No tasks scheduled</p>
+                <p className="text-xs text-muted-foreground/80 leading-relaxed max-w-[200px]">
+                  Drag cards from the board to schedule them for today
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </ScrollArea>

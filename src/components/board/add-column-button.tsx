@@ -34,7 +34,7 @@ export function AddColumnButton() {
     return (
       <button
         onClick={() => setIsAdding(true)}
-        className="flex h-fit w-72 shrink-0 items-center gap-2 rounded-xl border-2 border-dashed border-muted-foreground/25 p-3 text-sm text-muted-foreground transition-colors hover:border-muted-foreground/50 hover:text-foreground"
+        className="flex h-fit w-72 shrink-0 items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-primary/25 bg-primary/5 p-4 text-sm font-medium text-primary/70 transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:scale-[1.02]"
       >
         <Plus className="size-4" />
         Add column
@@ -43,7 +43,7 @@ export function AddColumnButton() {
   }
 
   return (
-    <div className="w-72 shrink-0 space-y-2 rounded-xl border bg-card p-3">
+    <div className="w-72 shrink-0 space-y-2 rounded-2xl border border-border/60 bg-card shadow-[0_2px_12px_rgba(59,130,246,0.08)] p-4">
       <Input
         ref={inputRef}
         value={title}
@@ -53,7 +53,7 @@ export function AddColumnButton() {
           if (e.key === "Escape") handleCancel()
         }}
         placeholder="Column title..."
-        className="h-8 text-sm"
+        className="h-9 text-sm font-medium"
       />
       <div className="flex items-center gap-1">
         <Button size="sm" onClick={handleSubmit}>
